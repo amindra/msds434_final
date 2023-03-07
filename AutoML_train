@@ -1,0 +1,12 @@
+# Use AutoML in BigQuery to train the flight dataset
+
+create or replace model `nu-msds.test.flights_training`
+options(model_type='AUTOML_REGRESSOR',
+  input_label_cols = ['Price']) 
+AS (
+  select Airline, Date_of_Journey, Source,
+    Destination, Route, Dep_Time, Arrival_Time, Duration,
+    Total_Stops, Additional_Info, Price
+  from `nu-msds.msds434_final.flights`
+limit 2000
+)
