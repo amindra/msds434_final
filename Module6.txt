@@ -1,0 +1,12 @@
+# Use BigQuery to run the following queries using a test dataset:
+
+create or replace model test.iowa_liquor_sales_model
+OPTIONS(input_label_cols=['sale_dollars'],model_type = 'linear_reg') as
+select 
+  bottles_sold, 
+  volume_sold_liters, 
+  volume_sold_gallons, 
+  sale_dollars,
+  bottle_volume_ml
+from `nu-msds.test.sales` 
+where bottle_volume_ml in (500,750,1000,1750);
