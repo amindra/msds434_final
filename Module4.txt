@@ -1,0 +1,15 @@
+# In GCP, navigate to your project (nu-msds) then open the Cloud Shell Terminal
+git clone https://github.com/amindra/msds434_final
+
+# Create a new bucket in GCP (msds434_final_data)
+
+# In Cloud Shell Terminal:
+gsutil -m cp *.csv gs://msds434_final_bucket
+
+# Creating BigQuery dataset
+gcloud config set project nu-msds
+bq mk msds434_final
+bq load --autodetect --source_format=CSV msds434_final.flight gs://msds434_final_bucket/Flights_Data.csv
+
+# Open BigQuery
+# Do a quick query to ensure everything works
