@@ -1,0 +1,12 @@
+# Open project in GCP Cloud Shell terminal
+# Enable API Engine Admin in GCP
+
+git clone https://github.com/GoogleCloudPlatform/python-docs-samples
+cd python-docs-samples
+cd appengine/standard_python3/hello_world/
+cat main.py #to see files the file
+
+gcloud app deploy
+#Choose region 23
+
+#Click on url to see changes or navigate to: nu-module3.wn.r.apppot.com
