@@ -9,4 +9,14 @@ AS (
     Total_Stops, Additional_Info, Price
   from `nu-msds.msds434_final.flights`
 limit 2000
+);
+
+# Testing prediction of model
+select * 
+from ML.PREDICT(MODEL `nu-msds.test.flights_training`,
+  (select 'IndiGo' as Airline, date('2019-06-07') as Date_of_Journey, 
+  'Kolkata' as Source, 'Banglore' as Destination, 'CCU → BLR' as Route, 
+  '05:30' as Dep_Time, '08:20' as Arrival_Time, '2h 50m' as Duration, 
+  'non-stop' as Total_Stops, 'No info' as Additional_Info
+  )
 )
