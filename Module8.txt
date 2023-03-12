@@ -1,0 +1,40 @@
+# Examining Billing information via BigQuery
+SELECT
+  invoice.month,
+  cost_type,
+  SUM(cost)
+    + SUM(IFNULL((SELECT SUM(c.amount)
+                  FROM   UNNEST(credits) c), 0))
+    AS total,
+  (SUM(CAST(cost AS NUMERIC))
+    + SUM(IFNULL((SELECT SUM(CAST(c.amount AS NUMERIC))
+                  FROM UNNEST(credits) AS c), 0)))
+    AS total_exact,
+  SUM(IFNULL((SELECT SUM(c.amount)
+              FROM   UNNEST(credits) c), 0))
+    AS credit_amount
+FROM `nu-msds.test.gcp_billing_export_v1_01738C_F38154_71D899`
+GROUP BY 1, 2
+ORDER BY 1 ASC, 2 ASC;
+
+SELECT
+  invoice.month,
+  SUM(cost)
+    + SUM(IFNULL((SELECT SUM(c.amount)
+                  FROM UNNEST(credits) c), 0))
+    AS total,
+  (SUM(CAST(cost AS NUMERIC))
+    + SUM(IFNULL((SELECT SUM(CAST(c.amount AS NUMERIC))
+                  FROM UNNEST(credits) AS c), 0)))
+    AS total_exact
+FROM `nu-msds.test.gcp_billing_export_v1_01738C_F38154_71D899`
+GROUP BY 1
+ORDER BY 1 ASC; 
+
+SELECT   
+  SUM(cost)
+    + 
+    SUM(IFNULL((SELECT SUM(c.amount)
+                  FROM   UNNEST(credits) c), 0))
+    AS total,
+FROM `nu-msds.test.gcp_billing_export_v1_01738C_F38154_71D899`
