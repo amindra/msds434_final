@@ -1,2 +1,2 @@
 # msds434_final
-Northwestern MSDS 434 Final Project
+This is my GitHub for the Northwestern MSDS 434 class for Winter 2023.
