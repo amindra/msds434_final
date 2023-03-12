@@ -1,0 +1,39 @@
+# Create an instance in GCP
+
+# In GCP, open Cloud Shell Terminal for that instance
+sudo apt update
+sudo apt install golang-go
+
+curl -sSO https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh
+sudo bash add-monitoring-agent-repo.sh --also-install
+
+sudo apt-get update
+
+sudo apt-get -y install apache2-utils
+ab -n 1000 -c 100 http://10.182.0.2:8000/
+
+vi hello.go
+
+curl http://10.182.0.2:8000/
+
+# Following is code in Go:
+package main
+
+import(
+"log"
+"net/http"
+)
+
+func helloGoHandler(w http.ResponseWriter, r *http.Request){
+  w.Write([]byte("hello net/http!\n"))
+}
+
+func main(){
+http.HandleFunc("/", helloGoHandler)
+log.Fatal(http.ListenAndServe(":8000", nil))
+}
+
+# For load testing, run the following command a few times:
+ab -n 1000 -c http://10.182.0.2:8000/
+
+# You can see the CPU (mean) usage and utilization on your Monitoring Dashboard
