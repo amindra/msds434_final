@@ -1,0 +1,14 @@
+# In GCP, create staging project (stg-nu-msds) & production project (prod-nu-msds)
+# Open staging project (stg-nuu-msds)
+
+# In Cloud Shell Terminal:
+gcloud config configurations list 
+gcloud config configurations create stg
+gcloud config configurations activate stg
+gcloud init
+
+gcloud config set project prod-nu-msds
+gcloud config configurations list
+gcloud config configurations create prod
+gcloud config configurations activate prod
+gcloud init
